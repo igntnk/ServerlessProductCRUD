@@ -22,6 +22,6 @@ jobs:
         uses: actions/upload-artifact@v4
         run: |
           git fetch origin main:main
-          echo git diff --name-only --diff-filter=d main~ main | grep *.go >> ./changed_files.txt
+          echo git diff --name-only --diff-filter=d main~ main | grep .go >> ./changed_files.txt
         with:
           path: './changed_files.txt'
