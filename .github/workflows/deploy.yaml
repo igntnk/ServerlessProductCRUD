@@ -18,8 +18,10 @@ jobs:
         with:
           go-version: 1.21
 
-      - name: Display Go version
-        run: go version
-
-      - name: Display local packages info
-        run: go list ./...
+      - name: Get Only needed files
+        uses: actions/upload-artifact@v4
+        run: |
+          git fetch origin main:main
+          echo git diff --name-only --diff-filter=d main~ main | grep *.go >> ./changed_files.txt
+        with:
+          path: './changed_files.txt'

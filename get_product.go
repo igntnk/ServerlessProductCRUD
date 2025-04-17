@@ -23,6 +23,7 @@ type Product struct {
 func GetProductById(rw http.ResponseWriter, req *http.Request) {
 	timeCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
 	rw.Header().Set("Content-Type", "application/json")
 
 	l := zerolog.New(os.Stdout).With().Stack().Timestamp().Logger()

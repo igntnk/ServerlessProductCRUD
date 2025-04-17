@@ -25,6 +25,7 @@ type Product struct {
 
 func GetProducts(ctx context.Context) (*Response, error) {
 	l := zerolog.New(os.Stdout).With().Stack().Timestamp().Logger()
+
 	creds := ycsdk.InstanceServiceAccount()
 	token, err := creds.IAMToken(ctx)
 	if err != nil {
