@@ -10,12 +10,8 @@ This is a Go-based serverless application that provides CRUD (Create, Read, Upda
 - 🔐 Uses **Yandex Cloud IAM** for authentication
 - 📝 Structured logging with **zerolog**
 
-## API Endpoints
-
 Prerequisites
 
 - 🐹 Go 1.21 or higher
 - ☁️ Yandex Cloud account
 - 🗄️ YDB database instance
-- ⚙️ Environment variables:
-    DATABASE_URL: Connection string for YDB database
