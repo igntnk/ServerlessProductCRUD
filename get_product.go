@@ -43,6 +43,7 @@ func GetProductById(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Stack().Err(err).Msg("cannot unmarshal request body")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "cannot unmarshal request body"}`))
+
 		return
 	}
 
@@ -50,6 +51,7 @@ func GetProductById(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Stack().Msg("received from body product id is invalid")
 		rw.WriteHeader(http.StatusBadRequest)
 		rw.Write([]byte(`{"error": "product id is invalid"}`))
+
 		return
 	}
 
