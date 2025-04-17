@@ -69,6 +69,7 @@ func GetProducts(ctx context.Context) (*Response, error) {
 				break
 			}
 			l.Error().Err(err).Msg("failed to fetch set of products")
+
 			return nil, err
 		}
 
@@ -79,6 +80,7 @@ func GetProducts(ctx context.Context) (*Response, error) {
 					break
 				}
 				l.Error().Err(err).Msg("failed to fetch row of products")
+
 				return nil, err
 			}
 

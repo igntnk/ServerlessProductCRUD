@@ -32,6 +32,7 @@ func CreateProduct(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Stack().Err(err).Msg("cannot get request body")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "cannot get request body"}`))
+
 		return
 	}
 
@@ -42,6 +43,7 @@ func CreateProduct(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Stack().Err(err).Msg("cannot unmarshal request body")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "cannot unmarshal request body"}`))
+
 		return
 	}
 
