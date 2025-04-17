@@ -1,0 +1,25 @@
+name: Serverless Function CI/CD
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Info List
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go 1.21
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.21
+
+      - name: Display Go version
+        run: go version
+
+      - name: Display local packages info
+        run: go list ./...
