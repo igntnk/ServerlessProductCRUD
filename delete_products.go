@@ -68,6 +68,7 @@ func DeleteProducts(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Err(err).Msg("failed to connect to database")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "failed to connect to database"}`))
+
 		return
 	}
 
@@ -76,6 +77,7 @@ func DeleteProducts(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Err(err).Msg("failed to query products")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "failed to query products"}`))
+
 		return
 	}
 	defer func() {

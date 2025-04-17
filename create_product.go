@@ -53,6 +53,7 @@ func CreateProduct(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Err(err).Msg("failed to get token")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "failed to get token"}`))
+
 		return
 	}
 	l.Info().Str("token", token.GetIamToken()).Msg("got IAM token")
@@ -68,6 +69,7 @@ func CreateProduct(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Err(err).Msg("failed to connect to database")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "failed to connect to database"}`))
+
 		return
 	}
 
