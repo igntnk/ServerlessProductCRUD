@@ -20,7 +20,6 @@ jobs:
 
       - name: Generate Artifact Files
         run: |
-          git fetch origin main:main
           echo git diff --name-only --diff-filter=d main~ main | grep .go >> ./changed_files.txt
 
       - name: Set Artifacts
