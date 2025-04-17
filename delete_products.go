@@ -31,6 +31,7 @@ func DeleteProducts(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Stack().Err(err).Msg("cannot get request body")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "cannot get request body"}`))
+
 		return
 	}
 
@@ -41,6 +42,7 @@ func DeleteProducts(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Stack().Err(err).Msg("cannot unmarshal request body")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "cannot unmarshal request body"}`))
+
 		return
 	}
 
@@ -50,6 +52,7 @@ func DeleteProducts(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Err(err).Msg("failed to get token")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "failed to get token"}`))
+
 		return
 	}
 	l.Info().Str("token", token.GetIamToken()).Msg("got IAM token")
