@@ -51,7 +51,7 @@ jobs:
         run: pip install yq
 
       - name: Make script executable
-        run: chmod +x .github/scripts/get-entrypoint.sh
+        run: chmod +x ./get-entrypoint.sh
 
       - name: Get entrypoint
         id: get-entrypoint

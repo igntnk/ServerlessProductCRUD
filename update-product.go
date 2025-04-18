@@ -129,11 +129,13 @@ func UpdateProduct(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Stack().Msg("received from database product id is invalid")
 		rw.WriteHeader(http.StatusBadRequest)
 		rw.Write([]byte(`{"error": "product id is invalid"}`))
+
 		return
 	}
 
 	response, _ := json.Marshal(product)
 	rw.WriteHeader(http.StatusOK)
 	rw.Write(response)
+
 	return
 }
