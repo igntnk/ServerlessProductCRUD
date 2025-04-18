@@ -15,7 +15,7 @@ jobs:
       - name: Get changed .go files
         id: changed-files
         run: |
-          changed_files=$(git diff --name-only HEAD^ HEAD -- '*.go' | tr '\n' ' ' '.go')
+          changed_files=$(git diff --name-only HEAD^ HEAD -- '*.go' | sed 's/\.go$//' | tr '\n' ' ')
           mkdir -p changed_go_files
           
           matrix_json="{\"include\":["
