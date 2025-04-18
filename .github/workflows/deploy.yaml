@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.changed-files.outputs.matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -46,6 +48,7 @@ jobs:
         run: echo "Deploying ${{ matrix.file }}"
 
       - name: Deploy Function
+        if: matrix.file != ''
         uses: yc-actions/yc-sls-function@v1.0.1
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}

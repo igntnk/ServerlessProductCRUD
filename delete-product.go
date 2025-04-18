@@ -86,5 +86,6 @@ func DeleteProducts(rw http.ResponseWriter, req *http.Request) {
 
 	rw.WriteHeader(http.StatusOK)
 	rw.Write(response)
+
 	return
 }
