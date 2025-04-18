@@ -24,6 +24,7 @@ func GetProducts(ctx context.Context) (*Response, error) {
 	token, err := creds.IAMToken(ctx)
 	if err != nil {
 		l.Error().Err(err).Msg("failed to get token")
+
 		return nil, fmt.Errorf("failed to get IAM token: %w", err)
 	}
 
