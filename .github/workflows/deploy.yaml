@@ -47,10 +47,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Python (for fallback)
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+      - name: Install yq
+        run: pip install yq
 
       - name: Make script executable
         run: chmod +x ./.github/scripts/get-entrypoint.sh
