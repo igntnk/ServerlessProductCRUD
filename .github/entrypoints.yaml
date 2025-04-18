@@ -1,0 +1,5 @@
+create-product: create-product.CreateProduct
+delete-product: delete-product.DeleteProducts
+get-all-products: get-all-products.GetProducts
+get-single-product: get-single-product.GetProductById
+update-product: update-product.UpdateProduct

@@ -47,6 +47,14 @@ jobs:
       - name: Print file to deploy
         run: echo "Deploying ${{ matrix.file }}"
 
+      - name: Install yq
+        run: pip install yq
+
+      - name: Get entrypoint
+        id: get-entrypoint
+        run: |
+          ./.github/scripts/get-entrypoint.sh "${{ matrix.file }}"
+
       - name: Deploy Function
         if: matrix.file != ''
         uses: yc-actions/yc-sls-function@v1.0.1
@@ -57,6 +65,6 @@ jobs:
           runtime: 'golang121'
           memory: '128Mb'
           execution_timeout: '10s'
-          entrypoint: 'com.nedonil.urlshort.UrlShortnerServlet'
+          entrypoint: "${{ steps.get-entrypoint.outputs.entrypoint }}"
           environment: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
