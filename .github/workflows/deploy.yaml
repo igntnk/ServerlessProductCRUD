@@ -56,7 +56,7 @@ jobs:
           function-name: ${{ matrix.file }}
           runtime: 'golang121'
           memory: '128Mb'
-          execution-timeout: '10s'
+          execution_timeout: '10s'
           entrypoint: 'com.nedonil.urlshort.UrlShortnerServlet'
           environment: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}

@@ -128,6 +128,7 @@ func GetProductById(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Stack().Msg("received from database product id is invalid")
 		rw.WriteHeader(http.StatusBadRequest)
 		rw.Write([]byte(`{"error": "product id is invalid"}`))
+
 		return
 	}
 
