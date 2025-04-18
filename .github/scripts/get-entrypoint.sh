@@ -16,7 +16,7 @@ if [ ! -f "$YAML_PATH" ]; then
 fi
 
 # Extract entrypoint
-ENTRYPOINT=$(yq -r ".$FILE_BASENAME" "$YAML_PATH")
+ENTRYPOINT=$(python3 -c "import yaml,sys;print(yaml.safe_load(open('$YAML_PATH')).get('$FILE_BASENAME', '')")
 
 # Debug: Print what we're looking for and what we found
 echo "Looking for key: $FILE_BASENAME"
