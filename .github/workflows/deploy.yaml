@@ -15,24 +15,25 @@ jobs:
       - name: Get changed .go files
         id: changed-files
         run: |
-          changed_files=$(git diff --name-only HEAD^ HEAD -- '*.go' tr '\n' ' ' | sed 's/\.go$//')
-          mkdir -p changed_go_files
-          
+          changed_files=$(git diff --name-only HEAD^ HEAD -- '*.go' | tr '\n' ' ')
+  
           matrix_json="{\"include\":["
           first=true
           for file in $changed_files; do
-            if [ -f "$file" ]; then
-              if [ "$first" = false ]; then
-                matrix_json+=","
-              fi
-              matrix_json+="{\"file\":\"$file\"}"
-              first=false
-            fi
+          if [ -f "$file" ]; then
+          if [ "$first" = false ]; then
+          matrix_json+=","
+          fi
+          
+          filename=$(echo "$file" | sed 's/\.go$//')
+          matrix_json+="{\"file\":\"$filename\"}"
+          first=false
+          fi
           done
           matrix_json+="]}"
           
-          echo "matrix=${matrix_json}" >> $GITHUB_OUTPUT
-          echo "Found files: ${matrix_json}"
+          echo "matrix=$matrix_json" >> $GITHUB_OUTPUT
+          echo "Generated matrix: $matrix_json"
 
   deploy:
     name: Deploy ${{ matrix.file }}
