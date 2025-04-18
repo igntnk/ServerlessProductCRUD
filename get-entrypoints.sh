@@ -2,7 +2,7 @@
 
 FILE_BASENAME=$(basename "$1" .go)
 
-ENTRYPOINT=$(yq -r ".$FILE_BASENAME" .github/entrypoints.yaml)
+ENTRYPOINT=$(yq -r ".$FILE_BASENAME" ./entrypoints.yaml)
 
 if [ -z "$ENTRYPOINT" ] || [ "$ENTRYPOINT" == "null" ]; then
   echo "Entrypoint not found for file: $FILE_BASENAME"
