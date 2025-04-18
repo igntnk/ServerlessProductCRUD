@@ -17,12 +17,6 @@ type Response struct {
 	Body       any `json:"body"`
 }
 
-type Product struct {
-	Id        int64
-	CreatedAt int64
-	Name      string
-}
-
 func GetProducts(ctx context.Context) (*Response, error) {
 	l := zerolog.New(os.Stdout).With().Stack().Timestamp().Logger()
 

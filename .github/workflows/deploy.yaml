@@ -4,7 +4,7 @@ on:
     branches: [ main ]
 
 jobs:
-  collect-changed-files:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -15,24 +15,44 @@ jobs:
       - name: Get changed .go files
         id: changed-files
         run: |
-          # Get the list of changed .go files in the last commit
           changed_files=$(git diff --name-only HEAD^ HEAD -- '*.go' | tr '\n' ' ')
-          
-          # Create a directory for the changed files
           mkdir -p changed_go_files
           
-          # Copy each changed file to the directory
+          matrix_json="{\"include\":["
+          first=true
           for file in $changed_files; do
             if [ -f "$file" ]; then
-              cp --parents "$file" changed_go_files/
+              if [ "$first" = false ]; then
+                matrix_json+=","
+              fi
+              matrix_json+="{\"file\":\"$file\"}"
+              first=false
             fi
           done
+          matrix_json+="]}"
           
-          # Output the list of files for potential use in other steps
-          echo "CHANGED_GO_FILES=${changed_files}" >> $GITHUB_OUTPUT
+          echo "matrix=${matrix_json}" >> $GITHUB_OUTPUT
+          echo "Found files: ${matrix_json}"
 
-      - name: Upload changed .go files as artifact
-        uses: actions/upload-artifact@v4
+  deploy:
+    name: Deploy ${{ matrix.file }}
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.build.outputs.matrix) }}
+    steps:
+      - name: Print file to deploy
+        run: echo "Deploying ${{ matrix.file }}"
+
+      - name: Deploy Function
+        uses: yc-actions/yc-sls-function@v1.0.1
         with:
-          name: changed-go-files
-          path: changed_go_files
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          folder-id: ${{ secrets.FOLDER_ID }}
+          function-name: ${{ matrix.file }}
+          runtime: 'golang121'
+          memory: '128Mb'
+          execution-timeout: '10s'
+          entrypoint: 'com.nedonil.urlshort.UrlShortnerServlet'
+          environment: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}

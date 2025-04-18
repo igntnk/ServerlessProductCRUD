@@ -14,12 +14,6 @@ import (
 	"time"
 )
 
-type Product struct {
-	Id        int64
-	CreatedAt int64
-	Name      string
-}
-
 func CreateProduct(rw http.ResponseWriter, req *http.Request) {
 	timeCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
