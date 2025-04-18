@@ -65,6 +65,7 @@ jobs:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           folder-id: ${{ secrets.FOLDER_ID }}
           function-name: ${{ matrix.file }}
+          service-account: ${{ secrets.SERVICE_ACCOUNT_ID }}
           runtime: 'golang121'
           memory: '128Mb'
           execution_timeout: '10s'
