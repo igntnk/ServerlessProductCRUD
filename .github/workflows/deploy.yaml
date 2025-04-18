@@ -47,6 +47,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: ls
+        run: ls
+
       - name: Install yq
         run: pip install yq
 
