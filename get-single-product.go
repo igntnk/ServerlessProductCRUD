@@ -111,6 +111,7 @@ func GetProductById(rw http.ResponseWriter, req *http.Request) {
 			result, _ := json.Marshal(product)
 			rw.WriteHeader(http.StatusOK)
 			rw.Write(result)
+
 			return
 		}
 		l.Error().Err(err).Msg("failed to fetch row of products")
