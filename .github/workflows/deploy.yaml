@@ -50,6 +50,9 @@ jobs:
       - name: Install yq
         run: pip install yq
 
+      - name: Make script executable
+        run: chmod +x .github/scripts/get-entrypoint.sh
+
       - name: Get entrypoint
         id: get-entrypoint
         run: |
