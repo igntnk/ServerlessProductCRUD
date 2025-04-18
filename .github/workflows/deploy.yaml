@@ -44,11 +44,14 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.build.outputs.matrix) }}
     steps:
-      - name: Print file to deploy
-        run: echo "Deploying ${{ matrix.file }}"
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Install yq
         run: pip install yq
+
+      - name: Make script executable
+        run: chmod +x ./.github/scripts/get-entrypoint.sh
 
       - name: Get entrypoint
         id: get-entrypoint
