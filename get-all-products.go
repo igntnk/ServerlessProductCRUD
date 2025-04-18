@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"github.com/rs/zerolog"
@@ -30,11 +31,19 @@ func GetProducts(ctx context.Context) (*Response, error) {
 
 	l.Info().Str("token", token.GetIamToken()).Msg("got IAM token")
 
-	database := os.Getenv("DATABASE_URL")
-	l.Info().Str("database", database).Msg("database url")
+	encodedURL := os.Getenv("DATABASE_URL")
+	if encodedURL == "" {
+		l.Fatal().Msg("DATABASE_URL_B64 environment variable not set")
+	}
+
+	database, err := base64.StdEncoding.DecodeString(encodedURL)
+	if err != nil {
+		l.Fatal().Msgf("Failed to decode DATABASE_URL: %v", err)
+	}
+	l.Info().Str("database", string(database)).Msg("database url")
 
 	db, err := ydb.Open(ctx,
-		database,
+		string(database),
 		ydb.WithAccessTokenCredentials(token.GetIamToken()),
 	)
 	if err != nil {
