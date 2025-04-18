@@ -100,6 +100,7 @@ func GetProductById(rw http.ResponseWriter, req *http.Request) {
 		l.Error().Err(err).Msg("failed to fetch set of products")
 		rw.WriteHeader(http.StatusInternalServerError)
 		rw.Write([]byte(`{"error": "failed to fetch set of products"}`))
+
 		return
 	}
 

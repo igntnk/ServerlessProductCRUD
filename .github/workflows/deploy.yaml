@@ -51,12 +51,12 @@ jobs:
         run: pip install yq
 
       - name: Make script executable
-        run: chmod +x ./get-entrypoint.sh
+        run: chmod +x ./.github/scripts/get-entrypoint.sh
 
       - name: Get entrypoint
         id: get-entrypoint
         run: |
-          ./get-entrypoint.sh "${{ matrix.file }}"
+          ./.github/scripts/get-entrypoint.sh "${{ matrix.file }}"
 
       - name: Deploy Function
         if: matrix.file != ''
